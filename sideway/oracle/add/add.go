@@ -32,7 +32,7 @@ func worker(id int, jobs <-chan int, results chan<- int, tx *sql.Tx, stmt *sql.S
 
 func main() {
 
-	ds := fmt.Sprintf("user=\"%s\" password=\"%s\" connectString=\"%s:%d/%s\"", "ora_pf", "ora_pf", "172.30.74.93", 1525, "PHUDB")
+	ds := fmt.Sprintf("user=\"%s\" password=\"%s\" connectString=\"%s:%d/%s\"", "", "", "", 1521, "")
 	fmt.Println(ds)
 	db, err := sql.Open("godror", ds)
 	if err != nil {

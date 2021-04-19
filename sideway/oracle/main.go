@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	ds := fmt.Sprintf("user=\"%s\" password=\"%s\" connectString=\"%s:%d/%s\"", "ora_pf1", "ora_pf", "172.30.74.93", 1526, "SPHUDB")
+	ds := fmt.Sprintf("user=\"%s\" password=\"%s\" connectString=\"%s:%d/%s\"", "", "", "", 1521, "")
 	fmt.Println(ds)
 	db, err := sql.Open("godror", ds)
 	if err != nil {
