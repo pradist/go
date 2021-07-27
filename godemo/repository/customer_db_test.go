@@ -30,13 +30,6 @@ func TestGetCustomer(t *testing.T) {
 	results, err := query.GetAll()
 	assert.NotNil(t, results)
 	assert.NoError(t, err)
-
-	query2 := `select customer_id, name, date_of_birth, city, zipcode, status 
-		from customers`
-
-	if mock.q != query2 {
-		t.Errorf(` %v\n`, mock.q)
-	}
 }
 
 func TestGetCustomer_Fail(t *testing.T) {
@@ -45,9 +38,7 @@ func TestGetCustomer_Fail(t *testing.T) {
 	mockSv := gmock.NewMockDB(ctrl)
 	mockSv.EXPECT().Select(gomock.Any(), gomock.Any()).Return(errors.New("database error"))
 
-	// mock := &mockDB{}
 	query := NewCustomerRepository(mockSv)
-
 	results, err := query.GetAll()
 	assert.Nil(t, results)
 	assert.Error(t, err)
@@ -62,7 +53,6 @@ func TestGetCustomerById(t *testing.T) {
 }
 
 func TestGetCustomerById_Fail(t *testing.T) {
-
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 	mockSv := gmock.NewMockDB(ctrl)
