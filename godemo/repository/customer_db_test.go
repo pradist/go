@@ -25,8 +25,12 @@ func (md *mockDB) Get(dest interface{}, query string, args ...interface{}) error
 }
 
 func TestGetCustomer(t *testing.T) {
-	mock := &mockDB{}
-	query := NewCustomerRepository(mock)
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+	mockSv := gmock.NewMockDB(ctrl)
+	mockSv.EXPECT().Select(gomock.Any(), gomock.Any()).Return(nil)
+
+	query := NewCustomerRepository(mockSv)
 	results, err := query.GetAll()
 	assert.NotNil(t, results)
 	assert.NoError(t, err)
@@ -45,8 +49,12 @@ func TestGetCustomer_Fail(t *testing.T) {
 }
 
 func TestGetCustomerById(t *testing.T) {
-	mock := &mockDB{}
-	query := NewCustomerRepository(mock)
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+	mockSv := gmock.NewMockDB(ctrl)
+	mockSv.EXPECT().Get(gomock.Any(), gomock.Any(), gomock.Any()).Return(nil)
+
+	query := NewCustomerRepository(mockSv)
 	results, err := query.GetById(1)
 	assert.NotNil(t, results)
 	assert.NoError(t, err)
