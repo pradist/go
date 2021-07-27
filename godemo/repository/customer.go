@@ -8,7 +8,6 @@ type Customer struct {
 	ZipCode     string `db:"zipcode"`
 	Status      int    `db:"status"`
 }
-
 type CustomerRepository interface {
 	GetAll() ([]Customer, error)
 	GetById(int) (*Customer, error)

@@ -1,12 +1,10 @@
 package repository
 
-import "github.com/jmoiron/sqlx"
-
 type customerRepositoryDB struct {
-	db *sqlx.DB
+	db DB
 }
 
-func NewCustomerRepository(db *sqlx.DB) CustomerRepository {
+func NewCustomerRepository(db DB) CustomerRepository {
 	return customerRepositoryDB{db: db}
 }
 
