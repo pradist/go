@@ -1,5 +1,7 @@
 package repository
 
+import "fmt"
+
 type customerRepositoryDB struct {
 	db DB
 }
@@ -28,5 +30,21 @@ func (r customerRepositoryDB) GetById(id int) (*Customer, error) {
 	if err != nil {
 		return nil, err
 	}
+	return &customer, nil
+}
+
+func (r customerRepositoryDB) Insert(customer Customer) (*Customer, error) {
+	query := `insert into customers (name, date_of_birth, city, zipcode, status)
+		values (?, ?, ?, ?, ?)`
+	result, err := r.db.Exec(query, customer.Name, customer.DateOfBirth, customer.City, customer.ZipCode, customer.Status)
+	if err != nil {
+		return nil, err
+	}
+	id, err := result.LastInsertId()
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println(id)
+	customer.CustomerID = int(id)
 	return &customer, nil
 }

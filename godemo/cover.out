@@ -1,8 +1,0 @@
-mode: set
-godemo/repository/customer_db.go:7.54,9.2 1 1
-godemo/repository/customer_db.go:11.60,16.16 4 1
-godemo/repository/customer_db.go:19.2,19.23 1 1
-godemo/repository/customer_db.go:16.16,18.3 1 1
-godemo/repository/customer_db.go:22.66,28.16 4 1
-godemo/repository/customer_db.go:31.2,31.23 1 1
-godemo/repository/customer_db.go:28.16,30.3 1 1

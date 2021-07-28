@@ -16,7 +16,14 @@ func main() {
 	db := initDatabase()
 
 	customerRepository := repository.NewCustomerRepository(db)
-	result, err := customerRepository.GetAll()
+	customer := repository.Customer{
+		Name:        "Pooh",
+		DateOfBirth: time.Now(),
+		City:        "Bangkok",
+		ZipCode:     "10140",
+		Status:      1,
+	}
+	result, err := customerRepository.Insert(customer)
 	if err != nil {
 		panic(err)
 	}
@@ -46,6 +53,7 @@ func initDatabase() *sqlx.DB {
 	)
 
 	db, err := sqlx.Open(viper.GetString("db.driver"), dsn)
+
 	if err != nil {
 		panic(err)
 	}
