@@ -1,6 +1,9 @@
 package repository
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+)
 
 type customerRepositoryDB struct {
 	db DB
@@ -33,10 +36,10 @@ func (r customerRepositoryDB) GetById(id int) (*Customer, error) {
 	return &customer, nil
 }
 
-func (r customerRepositoryDB) Insert(customer Customer) (*Customer, error) {
+func (r customerRepositoryDB) Insert(ctx context.Context, customer Customer) (*Customer, error) {
 	query := `insert into customers (name, date_of_birth, city, zipcode, status)
 		values (?, ?, ?, ?, ?)`
-	result, err := r.db.Exec(query, customer.Name, customer.DateOfBirth, customer.City, customer.ZipCode, customer.Status)
+	result, err := r.db.ExecContext(ctx, query, customer.Name, customer.DateOfBirth, customer.City, customer.ZipCode, customer.Status)
 	if err != nil {
 		return nil, err
 	}

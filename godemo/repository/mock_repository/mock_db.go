@@ -5,6 +5,7 @@
 package mock_repository
 
 import (
+	context "context"
 	sql "database/sql"
 	reflect "reflect"
 
@@ -34,24 +35,39 @@ func (m *MockDB) EXPECT() *MockDBMockRecorder {
 	return m.recorder
 }
 
-// Exec mocks base method.
-func (m *MockDB) Exec(query string, args ...interface{}) (sql.Result, error) {
+// Begin mocks base method.
+func (m *MockDB) Begin() (*sql.Tx, error) {
 	m.ctrl.T.Helper()
-	varargs := []interface{}{query}
+	ret := m.ctrl.Call(m, "Begin")
+	ret0, _ := ret[0].(*sql.Tx)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Begin indicates an expected call of Begin.
+func (mr *MockDBMockRecorder) Begin() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Begin", reflect.TypeOf((*MockDB)(nil).Begin))
+}
+
+// ExecContext mocks base method.
+func (m *MockDB) ExecContext(ctx context.Context, query string, args ...interface{}) (sql.Result, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, query}
 	for _, a := range args {
 		varargs = append(varargs, a)
 	}
-	ret := m.ctrl.Call(m, "Exec", varargs...)
+	ret := m.ctrl.Call(m, "ExecContext", varargs...)
 	ret0, _ := ret[0].(sql.Result)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// Exec indicates an expected call of Exec.
-func (mr *MockDBMockRecorder) Exec(query interface{}, args ...interface{}) *gomock.Call {
+// ExecContext indicates an expected call of ExecContext.
+func (mr *MockDBMockRecorder) ExecContext(ctx, query interface{}, args ...interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{query}, args...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Exec", reflect.TypeOf((*MockDB)(nil).Exec), varargs...)
+	varargs := append([]interface{}{ctx, query}, args...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExecContext", reflect.TypeOf((*MockDB)(nil).ExecContext), varargs...)
 }
 
 // Get mocks base method.

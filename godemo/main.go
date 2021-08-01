@@ -16,14 +16,14 @@ func main() {
 	db := initDatabase()
 
 	customerRepository := repository.NewCustomerRepository(db)
-	customer := repository.Customer{
-		Name:        "Pooh",
-		DateOfBirth: time.Now(),
-		City:        "Bangkok",
-		ZipCode:     "10140",
-		Status:      1,
-	}
-	result, err := customerRepository.Insert(customer)
+	// customer := repository.Customer{
+	// 	Name:        "Pooh",
+	// 	DateOfBirth: time.Now(),
+	// 	City:        "Bangkok",
+	// 	ZipCode:     "10140",
+	// 	Status:      1,
+	// }
+	result, err := customerRepository.GetAll()
 	if err != nil {
 		panic(err)
 	}

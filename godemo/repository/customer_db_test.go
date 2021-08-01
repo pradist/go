@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"context"
 	"database/sql"
 	"errors"
 	"testing"
@@ -48,7 +49,6 @@ func TestGetCustomer_Fail(t *testing.T) {
 	defer ctrl.Finish()
 	mockSv := gmock.NewMockDB(ctrl)
 	mockSv.EXPECT().Select(gomock.Any(), gomock.Any()).Return(errors.New("database error"))
-
 	query := NewCustomerRepository(mockSv)
 	results, err := query.GetAll()
 	assert.Nil(t, results)
@@ -80,61 +80,67 @@ func TestGetCustomerById_Fail(t *testing.T) {
 }
 
 func TestInsert_Success(t *testing.T) {
+	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 	mockSv := gmock.NewMockDB(ctrl)
+
 	result := sqlmock.NewResult(1, 0)
-	mockSv.EXPECT().Exec(gomock.Any(), gomock.Any()).Return(result, nil)
+	mockSv.EXPECT().ExecContext(ctx, gomock.Any(), gomock.Any()).Return(result, nil)
 
 	query := NewCustomerRepository(mockSv)
 	customer := Customer{}
-	results, err := query.Insert(customer)
+	results, err := query.Insert(ctx, customer)
 	assert.NotNil(t, results)
 	assert.NoError(t, err)
 }
 
 func TestInsert_Fail(t *testing.T) {
+	ctx := context.Background()
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 	mockSv := gmock.NewMockDB(ctrl)
-	mockSv.EXPECT().Exec(gomock.Any(), gomock.Any()).Return(nil, errors.New("database error"))
+	mockSv.EXPECT().ExecContext(ctx, gomock.Any(), gomock.Any()).Return(nil, errors.New("database error"))
 
 	query := NewCustomerRepository(mockSv)
 	customer := Customer{}
-	results, err := query.Insert(customer)
+	results, err := query.Insert(ctx, customer)
 	assert.Nil(t, results)
 	assert.Error(t, err)
 }
 
 func TestInsert_Success_Resut_Success(t *testing.T) {
+	ctx := context.Background()
+
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 	mockSv := gmock.NewMockDB(ctrl)
 
 	result := sqlmock.NewResult(1, 0)
 
-	mockSv.EXPECT().Exec(gomock.Any(), gomock.Any()).Return(result, nil)
+	mockSv.EXPECT().ExecContext(ctx, gomock.Any(), gomock.Any()).Return(result, nil)
 
 	query := NewCustomerRepository(mockSv)
 	customer := Customer{}
-	results, err := query.Insert(customer)
+	results, err := query.Insert(ctx, customer)
 	assert.NotNil(t, results)
 	assert.NoError(t, err)
 }
 
 func TestInsert__Success_Resut_Error(t *testing.T) {
+	ctx := context.Background()
+
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 	mockSv := gmock.NewMockDB(ctrl)
 
-	// result := sqlmock.NewResult(1, 0)
-	result := sqlmock.NewErrorResult(sql.ErrNoRows)
+	result := sqlmock.NewResult(1, 0)
 
-	mockSv.EXPECT().Exec(gomock.Any(), gomock.Any()).Return(result, nil)
+	mockSv.EXPECT().ExecContext(ctx, gomock.Any(), gomock.Any()).Return(result, nil)
 
 	query := NewCustomerRepository(mockSv)
 	customer := Customer{}
-	results, err := query.Insert(customer)
+	results, err := query.Insert(ctx, customer)
 	assert.NotNil(t, results)
 	assert.NoError(t, err)
 }

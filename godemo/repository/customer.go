@@ -1,6 +1,9 @@
 package repository
 
-import "time"
+import (
+	"context"
+	"time"
+)
 
 type Customer struct {
 	CustomerID  int       `db:"customer_id"`
@@ -13,5 +16,5 @@ type Customer struct {
 type CustomerRepository interface {
 	GetAll() ([]Customer, error)
 	GetById(int) (*Customer, error)
-	Insert(Customer) (*Customer, error)
+	Insert(context.Context, Customer) (*Customer, error)
 }

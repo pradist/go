@@ -1,0 +1,13 @@
+mode: set
+godemo/repository/customer_db.go:12.54,14.2 1 1
+godemo/repository/customer_db.go:16.60,21.16 4 1
+godemo/repository/customer_db.go:24.2,24.23 1 1
+godemo/repository/customer_db.go:21.16,23.3 1 1
+godemo/repository/customer_db.go:27.66,33.16 4 1
+godemo/repository/customer_db.go:36.2,36.23 1 1
+godemo/repository/customer_db.go:33.16,35.3 1 1
+godemo/repository/customer_db.go:39.97,43.16 3 1
+godemo/repository/customer_db.go:46.2,47.16 2 1
+godemo/repository/customer_db.go:50.2,52.23 3 1
+godemo/repository/customer_db.go:43.16,45.3 1 1
+godemo/repository/customer_db.go:47.16,49.3 1 0
