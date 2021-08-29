@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rockme
+  labels:
+    app: rockme
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rockme
+  template:
+    metadata:
+      labels:
+        app: rockme
+    spec:
+      containers:
+      - name: rockme
+        image: pradiske/app-rockme:v1.2.0
+        ports:
+        - containerPort: 8500

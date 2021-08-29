@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-ingress
+spec:
+  rules:
+    - host: myapp.com
+      http:
+        paths:
+        - pathType: Prefix
+          path: /api
+          backend:
+            service:
+              name: rockme-svc
+              port:
+                number: 8500
+          

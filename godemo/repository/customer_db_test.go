@@ -49,6 +49,7 @@ func TestGetCustomer_Fail(t *testing.T) {
 	defer ctrl.Finish()
 	mockSv := gmock.NewMockDB(ctrl)
 	mockSv.EXPECT().Select(gomock.Any(), gomock.Any()).Return(errors.New("database error"))
+
 	query := NewCustomerRepository(mockSv)
 	results, err := query.GetAll()
 	assert.Nil(t, results)
@@ -84,7 +85,6 @@ func TestInsert_Success(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 	mockSv := gmock.NewMockDB(ctrl)
-
 	result := sqlmock.NewResult(1, 0)
 	mockSv.EXPECT().ExecContext(ctx, gomock.Any(), gomock.Any()).Return(result, nil)
 

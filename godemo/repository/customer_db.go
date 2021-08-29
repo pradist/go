@@ -14,6 +14,7 @@ func NewCustomerRepository(db DB) CustomerRepository {
 }
 
 func (r customerRepositoryDB) GetAll() ([]Customer, error) {
+	r.db.Begin()
 	customers := []Customer{}
 	query := `select customer_id, name, date_of_birth, city, zipcode, status 
 		from customers`
